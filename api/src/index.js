@@ -10,10 +10,7 @@ const staticPath = express.static(path.join(__dirname, '../../../client/build'))
 const app = express();
 app.use(compression());
 
-// cfg.NON_PRODUCTION && app.use('*', cors('*'));
-app.use('*', cors('*'));
-
-console.log('cfg.NON_PRODUCTION', cfg.NON_PRODUCTION);
+cfg.NON_PRODUCTION && app.use('*', cors('*'));
 
 fetchWords();
 routes(app);
