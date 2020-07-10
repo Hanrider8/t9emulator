@@ -1,0 +1,30 @@
+.container {
+    justify-content: space-between;
+    padding: 0 10px;
+    background: #7400b8;
+    height: 36px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.list {
+    display: flex;
+    list-style: none;
+}
+
+.list div {
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+}
+
+.list div:active {
+    background-color: #5390D9;
+}
+
+.list div:hover {
+    background-color: #5390D9;
+}
+
+.title {
+    font-size: 1.2em;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "pp-nhl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "10.15.1"
+  },
+  "repository": {},
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^3.6.1",
+    "rimraf": "^2.7.1"
+  },
+  "scripts": {
+    "build": "concurrently \"cd client && yarn build\" \"cd api && yarn build\"",
+    "clean": "concurrently \"rimraf node_modules yarn.lock\" \"cd client && rimraf node_modules build yarn.lock\" \"cd api && rimraf node_modules build yarn.lock\"",
+    "heroku-postbuild": "yarn build",
+    "install": "(cd client && yarn) && (cd api && yarn)",
+    "start": "concurrently \"cd client && yarn start\" \"cd api && yarn start\"",
+    "start:prod": "cd api && yarn start:prod"
+  }
+}

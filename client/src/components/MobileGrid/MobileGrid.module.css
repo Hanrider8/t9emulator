@@ -1,0 +1,57 @@
+.container {
+    width: 30%;
+    margin: 2em 16px;
+    min-width: 310px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1px 1px;
+    grid-template-areas: "num1 num2 num3" "num4 num5 num6" "num7 num8 num9";
+}
+
+.element {
+    height: 60px;
+    background-color: #6930C3;
+    margin: 4px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.container button:focus {
+    outline: none;
+}
+.container button:hover {
+    outline: none;
+    background-color: #8830e2;
+}
+
+.element div:first-child {
+    font-size: 1.6em;
+}
+
+.element div:last-child {
+    font-size: 0.8em;
+    color: #b6b6b6;
+    text-transform: uppercase;
+}
+
+.num1 { grid-area: num1; }
+
+.num2 { grid-area: num2; }
+
+.num3 { grid-area: num3; }
+
+.num4 { grid-area: num4; }
+
+.num5 { grid-area: num5; }
+
+.num6 { grid-area: num6; }
+
+.num7 { grid-area: num7; }
+
+.num8 { grid-area: num8; }
+
+.num9 { grid-area: num9; }
