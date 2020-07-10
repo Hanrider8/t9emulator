@@ -1,6 +1,6 @@
-import React, {createContext} from 'react'
-import defaultValue from './defaultValue'
+import React, { createContext } from "react";
+import defaultValue from "./defaultValue";
 
-const context = createContext(defaultValue)
+const context = createContext(defaultValue);
 
-export default context
+export default context;

@@ -4,8 +4,8 @@ body {
   font-weight: bold;
   margin: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,5 +16,9 @@ body {
   align-items: center;
 }
 
-.grow { transition: all .1s ease-in-out; }
-.grow:hover { transform: scale(1.03); }
+.grow {
+  transition: all 0.1s ease-in-out;
+}
+.grow:hover {
+  transform: scale(1.03);
+}
