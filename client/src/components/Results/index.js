@@ -4,21 +4,20 @@ import spinner from "../../static/spinner.svg";
 import Pagination from "../Pagination";
 
 export default ({
-  data,
-  loading,
-  error,
-  userParams: { wordsOnly, page },
+  req: { error, data, loading },
+  userParams: { onlyWords },
   changePage,
 }) => {
   let content = <div className={styles.notice}>No results</div>;
-  const { results, num } = data;
-
   if (loading) content = <img alt="loading" src={spinner}></img>;
+  console.log("error in result", error);
   if (error) content = <div className={styles.notice}>{error}</div>;
-  if (!loading && results.length > 0) {
+
+  const { results, num, page } = data;
+  if (!loading && !error && results.length > 0) {
     content = results[page - 1].map((str) => (
       <div
-        style={{ fontSize: wordsOnly ? "1.3em" : "0.7em" }}
+        style={{ fontSize: onlyWords ? "1.3em" : "0.7em" }}
         className={styles.result}
         key={str}
       >

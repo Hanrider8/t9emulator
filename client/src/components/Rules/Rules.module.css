@@ -1,0 +1,30 @@
+.container {
+  background-color: #8830e2;
+  width: 260px;
+  height: 265px;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.items {
+  padding: 16px;
+}
+
+.item {
+  display: flex;
+  padding: 3px 16px;
+  color: white;
+  text-decoration: none;
+}
+
+.title {
+  position: absolute;
+  top: -12px;
+  left: 12px;
+  padding: 2px 8px;
+  background-color: #5390d9;
+  border-radius: 50px;
+  font-weight: bold;
+  border: 1px solid white;
+}

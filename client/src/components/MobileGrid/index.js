@@ -23,7 +23,7 @@ export default ({ onClick, loading }) => (
         className={`${styles["num" + btn]} ${styles.element} grow`}
       >
         <div>{btn}</div>
-        <div>{T9Map[btn].join()}</div>
+        <div>{T9Map[btn].join().replace(/,/g, " ")}</div>
       </button>
     ))}
   </div>

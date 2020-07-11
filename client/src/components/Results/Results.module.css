@@ -7,9 +7,9 @@
   background-color: #5390d9;
   min-height: 300px;
   align-items: center;
-  position: relative;
   margin: 12px;
   padding: 16px;
+  position: relative;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 

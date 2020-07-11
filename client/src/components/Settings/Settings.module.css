@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .switch {
@@ -14,9 +15,6 @@
 .switch_blok {
   display: flex;
   align-items: center;
-}
-
-.switch_blok:last-child div {
 }
 
 .switch input {
