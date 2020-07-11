@@ -6,6 +6,7 @@ import MobileGrid from "../components/MobileGrid";
 import Results from "../components/Results";
 import Settings from "../components/Settings";
 import useFetch from "../hooks/useFetch";
+import { chunkArray } from "../util";
 import cfg from "../config";
 import Context from "../context";
 import defaultValue from "../context/defaultValue";
@@ -14,8 +15,13 @@ export default () => {
   const [userParams, setUserParams] = useState({
     onlyWords: false,
     fetchOnKey: true,
+    page: 1,
   });
-  const [req, setReq] = useState({ data: [], error: null, loading: false });
+  const [req, setReq] = useState({
+    data: { results: [], num: null },
+    error: null,
+    loading: false,
+  });
   const [userInput, setUserInput] = useState("");
 
   const { t9 } = useParams(); // try url www.{server url}/t9/242 in browser :)
@@ -31,7 +37,15 @@ export default () => {
     );
     const jsonResponse = await response.json();
     response.ok
-      ? setReq({ ...req, data: jsonResponse, loading: false })
+      ? setReq({
+          ...req,
+          data: {
+            ...req.data,
+            results: chunkArray(jsonResponse, 500),
+            num: jsonResponse.length,
+          },
+          loading: false,
+        })
       : setReq({ ...req, error: jsonResponse.message, loading: false });
   };
 
@@ -43,7 +57,10 @@ export default () => {
 
   const onChangeUserInput = (e) =>
     setUserInput(e.target ? e.target.value : userInput + e);
+
   const clearUserInput = () => setUserInput("");
+  const changePage = (page) => setUserParams({ ...useParams, page });
+
   const onChangeUserParams = (type) =>
     setUserParams({ ...userParams, [type]: !userParams[type] });
 
@@ -69,7 +86,8 @@ export default () => {
           data={data}
           loading={loading}
           error={error}
-          wordsOnly={userParams.onlyWords}
+          userParams={userParams}
+          changePage={changePage}
         />
       </Context.Provider>
     </Layout>

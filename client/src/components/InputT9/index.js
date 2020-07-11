@@ -16,7 +16,7 @@ export default ({
       onChange={onChange}
       disabled={disabled}
       type="number"
-      maxLength={userParams.onlyWords ? 8 : 10}
+      maxLength={userParams.onlyWords ? 8 : 9}
     />
     <div className={`${styles.button_container}`}>
       <button

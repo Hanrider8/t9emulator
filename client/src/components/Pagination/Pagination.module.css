@@ -5,7 +5,11 @@
   padding: 6px;
   background-color: #6930c3;
   border-radius: 50px;
+  display: flex;
+  justify-content: space-around;
+  width: 160px;
 }
 
-.container a {
+.container a:hover {
+  color: #afa3c2;
 }

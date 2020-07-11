@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./Pagination.module.css";
 
-export default ({ onClick }) => (
+export default ({ changePage, pages, page }) => (
   <div className={styles.container}>
-    <a>Back</a>
-    <a>Next</a>
+    {page > 1 && <a onClick={() => changePage(page - 1)}>Back</a>}
+    <div>{page}</div>
+    <div>/</div>
+    <div>{pages}</div>
+    {page < pages && <a onClick={() => changePage(page + 1)}>Next</a>}
   </div>
 );
