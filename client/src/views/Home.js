@@ -11,6 +11,7 @@ import useFetch from "../hooks/useFetch";
 import { chunkArray, setHistory } from "../util";
 import cfg from "../config";
 import Context from "../context";
+import styles from "./Home.module.css";
 import defaultValue from "../context/defaultValue";
 
 const initReqState = {
@@ -52,26 +53,29 @@ export default () => {
         })
         .then((res) => res.json())
         .then(({ ok, error, results, t9, word }) => {
-          ok
-            ? setReq({
-                ...req,
-                data: {
-                  ...req.data,
-                  results: chunkArray(results, 300),
-                  num: results.length,
-                  page: 1,
-                },
-                t9,
-                word,
-                loading: false,
-              })
-            : setReq({
-                ...req,
-                error,
-                t9,
-                word,
-                loading: false,
-              });
+          if (ok) {
+            t9.length > 2 && setHistory(t9);
+            setReq({
+              ...req,
+              data: {
+                ...req.data,
+                results: chunkArray(results, 300),
+                num: results.length,
+                page: 1,
+              },
+              t9,
+              word,
+              loading: false,
+            });
+          } else {
+            setReq({
+              ...req,
+              error,
+              t9,
+              word,
+              loading: false,
+            });
+          }
         })
         .catch((error) =>
           setReq({
@@ -86,9 +90,6 @@ export default () => {
   useEffect(() => {
     if (userParams.fetchOnKey && userInput) {
       fetchData();
-      if (userInput.length > 2) {
-        setHistory(userInput);
-      }
     }
   }, [userInput, userParams]);
 
@@ -108,13 +109,7 @@ export default () => {
     <Layout header={"T9 Emul"}>
       <Context.Provider value={defaultValue}>
         <h2 style={{ paddingTop: 26 }}>Welcome in T9 emulator</h2>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            width: "100%",
-          }}
-        >
+        <div className={styles.container}>
           <Rules />
           <div>
             <InputT9

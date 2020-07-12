@@ -12,7 +12,7 @@ export const getHistory = () => getLocal();
 
 export const setHistory = (val) => {
   const newHistory = getLocal();
-  if (newHistory[10] !== val) {
+  if (newHistory[9] !== val) {
     while (newHistory.length >= 10) {
       newHistory.shift();
     }
