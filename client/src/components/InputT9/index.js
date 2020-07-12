@@ -1,22 +1,23 @@
 import React from "react";
 import styles from "./InputT9.module.css";
+import cfg from "../../config";
 
 export default ({
   value,
   onClickButton,
   onChange,
-  disabled,
   userParams,
   clear,
+  inputRef
 }) => (
   <div className={styles.container}>
     <input
       placeholder="Numbers"
       value={value}
+      ref={inputRef}
       onChange={onChange}
-      disabled={disabled}
       type="number"
-      maxLength={userParams.onlyWords ? 8 : 9}
+      maxLength={cfg.MAX_INPUT_LENGTH}
     />
     <div className={`${styles.button_container}`}>
       <button

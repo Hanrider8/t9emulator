@@ -10,7 +10,7 @@
   width: 160px;
 }
 
-.container a:hover {
+.container span:hover {
   color: #afa3c2;
   cursor: pointer;
 }

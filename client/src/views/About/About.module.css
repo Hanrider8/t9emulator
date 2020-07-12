@@ -1,0 +1,12 @@
+.container {
+  margin: 26px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content {
+  font-size: 0.8em;
+  color: #c3c3c3;
+  text-align: center;
+}

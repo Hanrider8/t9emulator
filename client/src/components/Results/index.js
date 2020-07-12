@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Results.module.css";
-import spinner from "../../static/spinner.svg";
 import Pagination from "../Pagination";
 
 export default ({
@@ -9,8 +8,7 @@ export default ({
   changePage,
 }) => {
   let content = <div className={styles.notice}>No results</div>;
-  if (loading) content = <img alt="loading" src={spinner}></img>;
-  console.log("error in result", error);
+  if (loading) content = <div className={styles.loader}></div>;
   if (error) content = <div className={styles.notice}>{error}</div>;
 
   const { results, num, page } = data;

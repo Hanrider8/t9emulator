@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import Layout from "../hoc/Layout";
-import InputT9 from "../components/InputT9";
-import MobileGrid from "../components/MobileGrid";
-import Results from "../components/Results";
-import Settings from "../components/Settings";
-import History from "../components/History";
-import Rules from "../components/Rules";
-import useFetch from "../hooks/useFetch";
-import { chunkArray, setHistory } from "../util";
-import Context from "../context";
+import Layout from "../../hoc/Layout";
+import InputT9 from "../../components/InputT9";
+import MobileGrid from "../../components/MobileGrid";
+import Results from "../../components/Results";
+import Settings from "../../components/Settings";
+import History from "../../components/History";
+import Rules from "../../components/Rules";
+import { chunkArray, setHistory } from "../../util";
 import styles from "./Home.module.css";
-import defaultValue from "../context/defaultValue";
+import cfg from "../../config";
 
 const initReqState = {
   data: { results: [], num: null, page: 1 },
@@ -30,19 +28,17 @@ export default () => {
   const [req, setReq] = useState(initReqState);
   const [userInput, setUserInput] = useState(t9 || "");
 
-  // const {data, error, loading} = useFetch(userInput || t9, userParams.fetchOnKey)
-
-  const fetchData = async () => {
+  const inputRef = useRef(null)
+  const fetchData = () => {
     if (
-      !req.loading
-      // &&
-      // userInput !== req.t9 &&
-      // userParams.onlyWords !== req.word
+        !req.loading
+        && ((userInput !== req.t9
+        && t9 !== req.t9)
+        || userParams.onlyWords !== req.word)
     ) {
       setReq({ ...initReqState, loading: true });
       fetch(`/_api/t9?t9=${userInput || t9}&onlyWords=${userParams.onlyWords}`)
         .then((res) => {
-          console.log(res);
           if (!res.ok && res.status !== 400)
             throw new Error(res.status + " - " + res.statusText);
           return res;
@@ -84,6 +80,7 @@ export default () => {
   };
 
   useEffect(() => {
+    inputRef.current.focus()
     if (userParams.fetchOnKey && userInput) {
       fetchData();
     }
@@ -92,10 +89,10 @@ export default () => {
   const onChangeUserInput = (e) =>
     setUserInput(
       e.target
-        ? e.target.value.length < 10
+        ? e.target.value.length <= cfg.MAX_INPUT_LENGTH
           ? e.target.value
           : userInput
-        : userInput.length < 10
+        : userInput.length < cfg.MAX_INPUT_LENGTH
         ? userInput + e
         : userInput
     );
@@ -111,7 +108,6 @@ export default () => {
 
   return (
     <Layout header={"T9 Emul"}>
-      <Context.Provider value={defaultValue}>
         <h2 style={{ paddingTop: 26 }}>Welcome in T9 emulator</h2>
         <div className={styles.container}>
           <Rules />
@@ -119,7 +115,7 @@ export default () => {
             <InputT9
               onChange={onChangeUserInput}
               value={userInput}
-              disabled={req.loading}
+              inputRef={inputRef}
               userParams={userParams}
               clear={clearUserInput}
               onClickButton={fetchData}
@@ -134,7 +130,6 @@ export default () => {
           <History />
         </div>
         <Results req={req} userParams={userParams} changePage={changePage} />
-      </Context.Provider>
     </Layout>
   );
 };
