@@ -12,4 +12,5 @@
 
 .container a:hover {
   color: #afa3c2;
+  cursor: pointer;
 }

@@ -9,7 +9,6 @@ import History from "../components/History";
 import Rules from "../components/Rules";
 import useFetch from "../hooks/useFetch";
 import { chunkArray, setHistory } from "../util";
-import cfg from "../config";
 import Context from "../context";
 import styles from "./Home.module.css";
 import defaultValue from "../context/defaultValue";
@@ -43,6 +42,7 @@ export default () => {
       setReq({ ...initReqState, loading: true });
       fetch(`/_api/t9?t9=${userInput || t9}&onlyWords=${userParams.onlyWords}`)
         .then((res) => {
+          console.log(res);
           if (!res.ok && res.status !== 400)
             throw new Error(res.status + " - " + res.statusText);
           return res;
@@ -90,7 +90,15 @@ export default () => {
   }, [userInput, userParams]);
 
   const onChangeUserInput = (e) =>
-    setUserInput(e.target ? e.target.value : userInput + e);
+    setUserInput(
+      e.target
+        ? e.target.value.length < 10
+          ? e.target.value
+          : userInput
+        : userInput.length < 10
+        ? userInput + e
+        : userInput
+    );
 
   const clearUserInput = () => {
     setReq(initReqState);

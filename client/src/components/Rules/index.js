@@ -1,19 +1,23 @@
 import React from "react";
 import styles from "./Rules.module.css";
-import { getHistory } from "../../util";
 
 export default () => (
   <div className={styles.container}>
     <div className={styles.title}>Rules</div>
     <div className={styles.items}>
-      <p>- max 9 numbers</p>
-      <p>- autofetch on input by default</p>
-      <p>OPTIONS:</p>
-      <p>
-        Every Input - disable auto fetch / enable SEND button for manual
-        fetching
-      </p>
-      <p>Only Words - fetch only words</p>
+      <ul>
+        <li>max 9 numbers</li>
+        <li>autofetch on input by default</li>
+      </ul>
+      <div className={styles.option_title}>OPTIONS:</div>
+      <div className={styles.option_item}>
+        <div>Every Input</div>
+        <div>disable auto fetch / enable SEND button for manual fetching</div>
+      </div>
+      <div className={styles.option_item}>
+        <div>Only Words</div>
+        <div>fetch only words</div>
+      </div>
     </div>
   </div>
 );

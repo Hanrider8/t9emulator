@@ -1,21 +1,35 @@
 .container {
   background-color: #8830e2;
   width: 260px;
-  height: 300px;
+  height: 250px;
   border-radius: 24px;
   position: relative;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
-.items {
-  padding: 16px;
+.items li {
+  font-size: 0.9em;
 }
 
 .item {
   display: flex;
   padding: 3px 16px;
-  color: white;
   text-decoration: none;
+}
+
+.option_title {
+  color: #56cfe1;
+  padding: 6px;
+}
+
+.option_item {
+  padding: 8px 12px;
+}
+
+.option_item div:last-child {
+  font-size: 0.8em;
+  margin: 6px 16px 0 16px;
+  color: rgb(189, 189, 189);
 }
 
 .title {

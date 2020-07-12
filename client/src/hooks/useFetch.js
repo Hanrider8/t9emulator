@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import cfg from "../config";
 
 export default (params, call) => {
   const [data, setData] = useState(null);
@@ -8,7 +7,7 @@ export default (params, call) => {
   call &&
     useEffect(() => {
       setLoading(true);
-      fetch(`${cfg.API_URL}/_api/t9?t9=${params}`)
+      fetch(`/_api/t9?t9=${params}`)
         .then((res) => res.json())
         .then(
           (result) => {
