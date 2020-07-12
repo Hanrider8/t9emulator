@@ -41,11 +41,7 @@ export default () => {
       // userParams.onlyWords !== req.word
     ) {
       setReq({ ...initReqState, loading: true });
-      fetch(
-        `${cfg.API_URL}/_api/t9?t9=${userInput || t9}&onlyWords=${
-          userParams.onlyWords
-        }`
-      )
+      fetch(`/_api/t9?t9=${userInput || t9}&onlyWords=${userParams.onlyWords}`)
         .then((res) => {
           if (!res.ok && res.status !== 400)
             throw new Error(res.status + " - " + res.statusText);
