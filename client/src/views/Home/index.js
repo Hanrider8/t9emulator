@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../../hoc/Layout";
 import InputT9 from "../../components/InputT9";
@@ -11,17 +11,15 @@ import { chunkArray, setHistory } from "../../util";
 import styles from "./Home.module.css";
 import cfg from "../../config";
 
-let timeout;
-
 const initReqState = {
   data: { results: [], num: null, page: 1 },
-  error: null,
+  error: "",
   loading: false,
   t9: null,
   word: null,
 };
 
-const Home = () => {
+export default () => {
   const { t9 } = useParams(); // try url www.{server url}/t9/242 in browser :)
   const [userParams, setUserParams] = useState({
     onlyWords: false,
@@ -30,12 +28,13 @@ const Home = () => {
   const [req, setReq] = useState(initReqState);
   const [userInput, setUserInput] = useState(t9 || "");
 
-  const inputRef = useRef(null);
-  const fetchData = useCallback(() => {
+  const inputRef = useRef(null)
+  const fetchData = () => {
     if (
-      !req.loading &&
-      ((userInput !== req.t9 && t9 !== req.t9) ||
-        userParams.onlyWords !== req.word)
+        !req.loading
+        && ((userInput !== req.t9
+        && t9 !== req.t9)
+        || userParams.onlyWords !== req.word)
     ) {
       setReq({ ...initReqState, loading: true });
       fetch(`/_api/t9?t9=${userInput || t9}&onlyWords=${userParams.onlyWords}`)
@@ -57,13 +56,13 @@ const Home = () => {
                 page: 1,
               },
               t9,
-              word: word === "true",
+              word,
               loading: false,
             });
           } else {
             setReq({
               ...req,
-              error: error.toString(),
+              error,
               t9,
               word,
               loading: false,
@@ -78,15 +77,15 @@ const Home = () => {
           })
         );
     }
-  }, [userInput, userParams, t9, req]);
+  };
 
   useEffect(() => {
-    // inputRef.current.focus()
+    inputRef.current.focus()
     if (userParams.fetchOnKey && userInput) {
-      clearTimeout(timeout);
-      timeout = setTimeout(fetchData, cfg.INPUT_DELAY);
+      fetchData();
     }
-  }, [userInput, userParams, fetchData]);
+  }, [userInput, userParams]);
+
   const onChangeUserInput = (e) =>
     setUserInput(
       e.target
@@ -102,42 +101,35 @@ const Home = () => {
     setReq(initReqState);
     setUserInput("");
   };
-  const changePage = useCallback(
-    (page) => setReq({ ...req, data: { ...req.data, page } }),
-    [req]
-  );
+  const changePage = (page) => setReq({ ...req, data: { ...req.data, page } });
 
-  const onChangeUserParams = useCallback(
-    (type) => setUserParams({ ...userParams, [type]: !userParams[type] }),
-    [userParams]
-  );
+  const onChangeUserParams = (type) =>
+    setUserParams({ ...userParams, [type]: !userParams[type] });
 
   return (
     <Layout header={"T9 Emul"}>
-      <h2 style={{ paddingTop: 26 }}>Welcome in T9 emulator</h2>
-      <div className={styles.container}>
-        <Rules />
-        <div>
-          <InputT9
-            onChange={onChangeUserInput}
-            value={userInput}
-            inputRef={inputRef}
-            userParams={userParams}
-            clear={clearUserInput}
-            onClickButton={fetchData}
-          />
-          <Settings
-            userParams={userParams}
-            onChange={onChangeUserParams}
-            onClickCheckbox={onChangeUserParams}
-          />
-          <MobileGrid onClick={onChangeUserInput} />
+        <h2 style={{ paddingTop: 26 }}>Welcome in T9 emulator</h2>
+        <div className={styles.container}>
+          <Rules />
+          <div>
+            <InputT9
+              onChange={onChangeUserInput}
+              value={userInput}
+              inputRef={inputRef}
+              userParams={userParams}
+              clear={clearUserInput}
+              onClickButton={fetchData}
+            />
+            <Settings
+              userParams={userParams}
+              onChange={onChangeUserParams}
+              onClickCheckbox={onChangeUserParams}
+            />
+            <MobileGrid loading={req.loading} onClick={onChangeUserInput} />
+          </div>
+          <History />
         </div>
-        <History />
-      </div>
-      <Results req={req} changePage={changePage} />
+        <Results req={req} userParams={userParams} changePage={changePage} />
     </Layout>
   );
 };
-
-export default Home;

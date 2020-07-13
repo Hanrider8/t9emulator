@@ -11,9 +11,9 @@ const Pagination = ({ changePage, pages, page }) => (
 );
 
 Pagination.propTypes = {
-    changePage: PropTypes.func,
-    pages: PropTypes.number,
-    page: PropTypes.number
-}
+  changePage: PropTypes.func,
+  pages: PropTypes.number,
+  page: PropTypes.number,
+};
 
-export default React.memo(Pagination)
+export default React.memo(Pagination);
