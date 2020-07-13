@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import Header from "../Header";
 
-test("full app rendering/navigating", () => {
+test("Header component test", () => {
   const { container, rerender } = render(<Header header={"test header"} />, {
     wrapper: MemoryRouter,
   });
