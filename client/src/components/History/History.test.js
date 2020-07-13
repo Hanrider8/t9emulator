@@ -5,7 +5,7 @@ import React from "react";
 test("History component test", () => {
   window.localStorage.setItem("history", JSON.stringify([234]));
 
-  const { container, getByText } = render(<History />);
+  const { container } = render(<History />);
   expect(container.innerHTML).toMatch("History");
   expect(container.innerHTML).toMatch("234");
 });
