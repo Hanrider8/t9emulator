@@ -3,10 +3,12 @@ const getLocal = () => {
   return localString ? JSON.parse(localString) : [];
 };
 
-export const chunkArray = (arr, size) =>
-  arr.length > size
+export const chunkArray = (arr, size) => {
+  if (arr.length === 0) return [];
+  return arr.length > size
     ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)]
     : [arr];
+};
 
 export const getHistory = () => getLocal();
 

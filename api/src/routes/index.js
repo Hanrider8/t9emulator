@@ -12,7 +12,7 @@ const responseObj = (t9, word, results, error) => ({
 export default app => {
   app.get("/_api/t9", (req, res) => {
     const { t9, onlyWords } = req.query;
-    if (t9.length > 10) {
+    if (t9.length > 9) {
       res.status(400).json(responseObj(t9, onlyWords, null, "T9 number is too large!"));
     } else {
       const resultStrings = T9Converter(t9) || [];

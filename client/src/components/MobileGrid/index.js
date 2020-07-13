@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./MobileGrid.module.css";
+import PropTypes from "prop-types";
 
 const T9Map = {
   1: ["NONE"],
@@ -13,11 +14,10 @@ const T9Map = {
   9: ["w", "x", "y", "z"],
 };
 
-export default ({ onClick, loading }) => (
+const MobileGrid = ({ onClick }) => (
   <div className={styles.container}>
     {Object.keys(T9Map).map((btn) => (
       <button
-        disabled={loading}
         onClick={() => onClick(btn)}
         key={btn}
         className={`${styles["num" + btn]} ${styles.element} grow`}
@@ -28,3 +28,9 @@ export default ({ onClick, loading }) => (
     ))}
   </div>
 );
+
+MobileGrid.propTypes = {
+  onClick: PropTypes.func,
+};
+
+export default React.memo(MobileGrid);

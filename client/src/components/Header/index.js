@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import PropTypes from "prop-types";
 
-export default ({ header }) => (
+const Header = ({ header }) => (
   <div className={`center-flex ${styles.container}`}>
     <div className={styles.title}>{header}</div>
     <ul className={styles.list}>
@@ -19,3 +20,9 @@ export default ({ header }) => (
     </ul>
   </div>
 );
+
+Header.propTypes = {
+  header: PropTypes.string,
+};
+
+export default React.memo(Header);

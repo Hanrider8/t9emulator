@@ -1,23 +1,19 @@
 import React from "react";
 import styles from "./Results.module.css";
-import spinner from "../../static/spinner.svg";
 import Pagination from "../Pagination";
+import PropTypes from "prop-types";
 
-export default ({
-  req: { error, data, loading },
-  userParams: { onlyWords },
-  changePage,
-}) => {
+const Result = ({ req: { error, data, loading, word }, changePage }) => {
   let content = <div className={styles.notice}>No results</div>;
-  if (loading) content = <img alt="loading" src={spinner}></img>;
-  console.log("error in result", error);
+  if (loading) content = <div className={styles.loader}></div>;
   if (error) content = <div className={styles.notice}>{error}</div>;
 
   const { results, num, page } = data;
+
   if (!loading && !error && results.length > 0) {
     content = results[page - 1].map((str) => (
       <div
-        style={{ fontSize: onlyWords ? "1.3em" : "0.7em" }}
+        style={{ fontSize: word ? "1.3em" : "0.7em" }}
         className={styles.result}
         key={str}
       >
@@ -40,3 +36,10 @@ export default ({
     </div>
   );
 };
+
+Result.propTypes = {
+  req: PropTypes.object.isRequired,
+  changePage: PropTypes.func.isRequired,
+};
+
+export default React.memo(Result);

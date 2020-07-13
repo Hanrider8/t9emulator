@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./History.module.css";
 import { getHistory } from "../../util";
 
-export default () => (
+const History = () => (
   <div className={styles.container}>
     <div className={styles.title}>History</div>
     <div className={styles.items}>
@@ -20,3 +20,5 @@ export default () => (
     </div>
   </div>
 );
+
+export default React.memo(History);
