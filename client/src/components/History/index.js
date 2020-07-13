@@ -21,4 +21,4 @@ const History = () => (
   </div>
 );
 
-export default React.memo(History);
+export default History;
