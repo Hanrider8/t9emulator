@@ -34,6 +34,7 @@ const Home = () => {
   const fetchData = useCallback(() => {
     if (
       !req.loading &&
+      userInput &&
       ((userInput !== req.t9 && t9 !== req.t9) ||
         userParams.onlyWords !== req.word)
     ) {
